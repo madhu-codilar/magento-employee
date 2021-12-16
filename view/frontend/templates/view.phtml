@@ -1,0 +1,44 @@
+<?php
+/**
+ * @var \Codilar\Employee\Block\View $block
+ */
+$employees = $block->getAllEmp();
+?>
+<div class="employee-listing">
+    <h1>Our Employee List</h1>
+    <form  method="POST" action="<?php echo $block->getFormUrl() ?>" >
+        <input type="submit" value="Add new Employee" name="Add new Employee" style="background-color:#514943; color:white;">
+    </form>
+    <?php if (count($employees) > 0): ?>
+        <table>
+            <thead>
+            <tr>
+                <th><?php echo __('ID')?></th>
+                <th><?php echo __('Name') ?></th>
+                <th><?php echo __('Action') ?></th>
+            </tr>
+            <?php foreach ($block->getAllEmp() as $employee): ?>
+                <tr>
+                    <td><?php echo $employee->getEntityId()?></td>
+                    <td><?php echo $employee->getName() ?></td>
+                    <td>
+                        <span>
+                            <button><a href="<?php echo $block->getEditUrl(). 'entity_id/' . $employee->getEntityId()?>">Edit</a></button>
+                        </span>
+                        <span>
+                            <button><a href="<?php echo $block->getDeleteUrl(). 'entity_id/' . $employee->getEntityId()?>">Delete</a></button>
+                        </span>
+                        <span>
+                            <button><a href="<?php echo $block->getDetailslUrl(). 'entity_id/' . $employee->getEntityId()?>">View</a></button>
+                        </span>
+                    </td>
+
+                  
+                </tr>
+            <?php endforeach; ?>
+            </thead>
+        </table>
+    <?php else: ?>
+        <h3>Employee List is Empty</h3>
+    <?php endif; ?>
+</div>
